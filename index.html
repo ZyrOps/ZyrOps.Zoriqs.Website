@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thoth Sparkz | Web Design, Apps & Digital Growth Studio</title>
+    <meta name="description" content="Thoth Sparkz creates websites, mobile apps, digital branding, marketing systems, and product experiences for teams that need creative digital work shipped fast." />
+    <meta name="keywords" content="Thoth Sparkz, web design, web development, mobile app development, digital branding, digital marketing, product design, UI UX design" />
+    <meta name="author" content="Thoth Sparkz" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Thoth Sparkz | Web Design, Apps & Digital Growth Studio" />
+    <meta property="og:description" content="Creative digital solutions for websites, apps, branding, marketing, and product experiences." />
+    <meta property="og:image" content="assets/img/thoth-sparkz-logo-pdf.png" />
+    <meta property="og:image:alt" content="Thoth Sparkz logo" />
+    <meta property="og:site_name" content="Thoth Sparkz" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Thoth Sparkz | Digital Design Studio" />
+    <meta name="twitter:description" content="Websites, apps, branding, marketing, and product design from Thoth Sparkz." />
+    <meta name="twitter:image" content="assets/img/thoth-sparkz-logo-pdf.png" />
+    <meta name="theme-color" content="#0a0d12" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="preload" href="assets/img/hero-device.webp" as="image" fetchpriority="high" />
+    <link rel="preload" href="assets/fonts/AMLeCygne-Noir.otf" as="font" type="font/otf" crossorigin />
+    <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="styles.css?v=nav-center-scroll1" />
+    <script>
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "ProfessionalService",
+            "@id": "#business",
+            "name": "Thoth Sparkz",
+            "description": "Creative digital studio offering web design, web development, mobile app development, digital branding, digital marketing, and product design.",
+            "email": "info@thotsparkz.com",
+            "priceRange": "$$",
+            "areaServed": "Worldwide",
+            "serviceType": [
+              "Web Design",
+              "Web Development",
+              "Mobile App Development",
+              "Digital Branding",
+              "Digital Marketing",
+              "Product Design"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "#website",
+            "name": "Thoth Sparkz"
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How much does it cost?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Reach out to Thoth Sparkz to discuss your requirements and find the right plan for your website, app, brand, or marketing needs."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "We already have a design team. Can you still help?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Thoth Sparkz can integrate into an existing workflow as an extension of your team."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What can you design?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Thoth Sparkz works on mobile apps, SaaS products, websites, landing pages, design systems, dashboards, UI design, prototyping, and developer handoff."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+    <script defer src="assets/vendor/lenis.min.js"></script>
+    <script defer src="assets/vendor/gsap.min.js"></script>
+    <script defer src="assets/vendor/ScrollTrigger.min.js"></script>
+    <script defer src="animations.js?v=nav-center-scroll1"></script>
+    <script defer src="main.js?v=mobile-responsive1"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+
+    <header class="site-nav" data-nav>
+      <a class="brand" href="index.html" aria-label="Thoth Sparkz home">
+        <img src="assets/img/thoth-sparkz-logo-pdf.png" alt="Thoth Sparkz" width="300" height="230" decoding="async" />
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html" class="is-active">Design Studio</a>
+        <a href="#how-it-works">Our Services</a>
+        <a href="work.html">Product</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="service-nav-progress" aria-label="Our Services progress" aria-hidden="true">
+        <span class="is-active"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <a class="nav-cta" href="contact.html">Start today</a>
+      <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+      <div class="scroll-progress" data-scroll-progress></div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu" data-mobile-menu role="dialog" aria-modal="true" aria-label="Mobile navigation" aria-hidden="true">
+      <nav aria-label="Mobile navigation">
+        <a href="index.html">Design Studio</a>
+        <a href="#how-it-works">Our Services</a>
+        <a href="work.html">Product</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Book a call</a>
+      </nav>
+    </div>
+
+    <main id="main-content">
+      <section class="hero" id="hero-section">
+        <div class="hero-copy">
+          <p class="eyebrow reveal">Senior product design, on demand.</p>
+          <h1 class="display reveal">Pause hiring,<br />Start designing.</h1>
+          <p class="hero-sub reveal">
+            We design your <strong data-rotator>Mobile App</strong> without limits, for a fixed price.
+          </p>
+          <div class="hero-actions reveal">
+            <a class="button button-dark" href="contact.html">Book a call</a>
+            <a class="button button-light" href="work.html">See client stories</a>
+          </div>
+        </div>
+        <div class="hero-device reveal" aria-label="Product delivery preview">
+          <img src="assets/img/hero-device.webp" alt="" width="4096" height="2731" decoding="async" fetchpriority="high" />
+          <div class="phone-card">
+            <div class="delivery-note">
+              <span>Get the job done</span>
+              <strong>Your design has been delivered</strong>
+            </div>
+            <video autoplay muted loop playsinline>
+              <source src="assets/video/notif.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      </section>
+
+      <section class="big-statement">
+        <p class="word-reveal">
+          <span class="word">Finding</span> <span class="word">a</span> <span class="word">product</span> <span class="word">designer</span> <span class="word">takes</span> <span class="word">months.</span>
+          <span class="word">Starting</span> <span class="word">with</span> <span class="word">Thoth Sparkz</span> <span class="word">takes</span> <span class="word">minutes.</span>
+          <span class="word">Unlimited</span> <span class="word">requests.</span> <span class="word">Fixed</span> <span class="word">monthly</span> <span class="word">price.</span>
+          <span class="word">No</span> <span class="word">commitment.</span>
+        </p>
+      </section>
+
+      <section class="process-section" id="how-it-works">
+        <div class="section-heading">
+          <p class="eyebrow">Our Services</p>
+        </div>
+        <div class="process-track">
+          <article class="feature-card feature-card-web-design reveal">
+            <video autoplay muted loop playsinline>
+              <source src="assets/video/card1-designer.mp4" type="video/mp4" />
+            </video>
+            <h3>Digital Branding</h3>
+            <p>We craft compelling brand identities that resonate with your audience and establish a strong digital presence across every platform.</p>
+          </article>
+          <article class="feature-card reveal">
+            <video autoplay muted loop playsinline>
+              <source src="assets/video/card2.mp4" type="video/mp4" />
+            </video>
+            <h3>Web Design</h3>
+            <p>We create stunning, responsive websites that captivate visitors and drive conversions with intuitive user experiences.</p>
+          </article>
+          <article class="feature-card reveal">
+            <video class="service-video" autoplay muted loop playsinline aria-label="Animated web development interface">
+              <source src="assets/img/service-web-development.webm" type="video/webm" />
+            </video>
+            <h3>Web Development</h3>
+            <p>Our developers build robust, scalable web applications using modern technologies, clean structure, and reliable best practices.</p>
+          </article>
+          <article class="feature-card reveal">
+            <video class="service-video" autoplay muted loop playsinline aria-label="Animated digital marketing dashboard">
+              <source src="assets/img/service-digital-marketing.webm" type="video/webm" />
+            </video>
+            <h3>Digital Marketing</h3>
+            <p>We develop strategic campaigns that increase online visibility, attract qualified traffic, and turn attention into measurable growth.</p>
+          </article>
+          <article class="feature-card reveal">
+            <video class="service-video" autoplay muted loop playsinline aria-label="Animated mobile app interface">
+              <source src="assets/img/service-mobile-app-development.webm" type="video/webm" />
+            </video>
+            <h3>Mobile App Development</h3>
+            <p>We create native and cross-platform mobile applications that deliver polished experiences across devices and user journeys.</p>
+          </article>
+          <article class="feature-card feature-card-logo reveal">
+            <img class="logo-transition-img" src="assets/img/logo-end.png" alt="Studio Logo" width="1004" height="785" decoding="async" />
+          </article>
+        </div>
+        <div class="process-logo-stage" aria-hidden="true">
+          <img src="assets/img/logo-end.png" alt="" width="1004" height="785" decoding="async" />
+        </div>
+      </section>
+
+      <section class="work-preview section-dark" id="product">
+        <div class="section-heading center">
+          <p class="eyebrow">Product</p>
+          <h2>Portfolio<br />products.</h2>
+          <p>Selected digital products and brand systems from the Thoth Sparkz portfolio.</p>
+        </div>
+        <div class="story-grid">
+          <a class="story-card reveal" href="work.html">
+            <img class="cover" src="assets/img/alpa-dashboard-today.webp" alt="TechVision Dashboard preview" width="1600" height="1200" loading="lazy" decoding="async" />
+            <div>
+              <img src="assets/img/logo-alpa.png" alt="Alpa" width="150" height="40" loading="lazy" decoding="async" />
+              <strong>TechVision Dashboard</strong>
+              <span>Web Design</span>
+            </div>
+          </a>
+          <a class="story-card reveal" href="work.html">
+            <img class="cover" src="assets/img/alpin-klintt-app.webp" alt="FitTrack Mobile App preview" width="4500" height="3000" loading="lazy" decoding="async" />
+            <div>
+              <img src="assets/img/logo-klintt.png" alt="Klintt" width="626" height="736" loading="lazy" decoding="async" />
+              <strong>FitTrack Mobile App</strong>
+              <span>Mobile App</span>
+            </div>
+          </a>
+          <a class="story-card reveal" href="work.html">
+            <img class="cover" src="assets/img/winter-renovation-journey-flow.webp" alt="Luxe Fashion Branding preview" width="2505" height="999" loading="lazy" decoding="async" />
+            <div>
+              <img src="assets/img/logo-winter.png" alt="Winter" width="344" height="172" loading="lazy" decoding="async" />
+              <strong>Luxe Fashion Branding</strong>
+              <span>Branding</span>
+            </div>
+          </a>
+          <a class="story-card reveal" href="work.html">
+            <img class="cover" src="assets/img/alpa-cashflow-notifications.webp" alt="ElectroShop E-commerce preview" width="1600" height="1200" loading="lazy" decoding="async" />
+            <div>
+              <strong>ElectroShop E-commerce</strong>
+              <span>Web Design</span>
+            </div>
+          </a>
+          <a class="story-card reveal" href="work.html">
+            <img class="cover" src="assets/img/alpin-klintt-site.webp" alt="QuickBite Delivery App preview" width="4500" height="3000" loading="lazy" decoding="async" />
+            <div>
+              <strong>QuickBite Delivery App</strong>
+              <span>Mobile App</span>
+            </div>
+          </a>
+          <a class="story-card reveal" href="work.html">
+            <img class="cover" src="assets/img/winter-energy-dashboard-dpe.webp" alt="NexTech Corporate Identity preview" width="4500" height="3000" loading="lazy" decoding="async" />
+            <div>
+              <strong>NexTech Corporate Identity</strong>
+              <span>Branding</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="services-section section-white">
+        <div class="section-heading">
+          <p class="eyebrow">Capabilities</p>
+          <h2>Everything a founding designer would handle.</h2>
+        </div>
+        <div class="service-grid">
+          <article class="service-card reveal">
+            <span>01</span>
+            <h3>Product UX and UI</h3>
+            <p>Mobile apps, SaaS products, dashboards, flows, prototyping, design systems, and developer-ready handoff.</p>
+          </article>
+          <article class="service-card reveal">
+            <span>02</span>
+            <h3>Websites and acquisition</h3>
+            <p>Marketing websites, launch pages, content-first architectures, lead capture, and conversion-focused journeys.</p>
+          </article>
+          <article class="service-card reveal">
+            <span>03</span>
+            <h3>Brand and systems</h3>
+            <p>Brand foundations, visual direction, components, tone of voice, and operational patterns that scale with the team.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="testimonial-section section-white">
+        <div class="section-heading">
+          <p class="eyebrow">Impact</p>
+          <h2>Good design starts with understanding.</h2>
+        </div>
+        <div class="quote-grid">
+          <article class="quote-card reveal">
+            <p>"The collaboration was dynamic and we are more than satisfied with the results. The understanding of our needs was crystal clear."</p>
+            <strong>Mickael B.</strong>
+            <span>CEO, Alpin Capital</span>
+          </article>
+          <article class="quote-card reveal">
+            <p>"Relevant recommendations on user journeys, backed by a thoughtful analysis of needs. Great flexibility with feedback."</p>
+            <strong>Louise S.</strong>
+            <span>Product Manager, Winter</span>
+          </article>
+          <article class="quote-card reveal">
+            <p>"They transformed dense product problems into clear decisions, screens, and flows our team could ship."</p>
+            <strong>Mickael B.</strong>
+            <span>CEO, Alpa</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="faq-section" id="faq">
+        <div class="section-heading center">
+          <p class="eyebrow">FAQ</p>
+          <h2>Frequently asked questions</h2>
+          <p>Everything you need to know before getting started.</p>
+        </div>
+        <div class="faq-list" data-accordion>
+          <article>
+            <button>How much does it cost?<span></span></button>
+            <div><p>Please reach out to us. We'll be happy to discuss it with you and find the right plan for your needs.</p></div>
+          </article>
+          <article>
+            <button>We already have a design team. Can you still help?<span></span></button>
+            <div><p>Absolutely. We integrate into your existing workflow and tools. Think of us as an extension of your team, not a replacement.</p></div>
+          </article>
+          <article>
+            <button>Who will be my designer?<span></span></button>
+            <div><p>A dedicated senior product designer with experience shipping products at startups and scale-ups. No handoffs, no junior rotations.</p></div>
+          </article>
+          <article>
+            <button>What can you design?<span></span></button>
+            <div><p>Mobile apps, SaaS products, websites, landing pages, design systems, dashboards, UX research, UI design, prototyping, and developer handoff.</p></div>
+          </article>
+          <article>
+            <button>How fast can you start?<span></span></button>
+            <div><p>Most engagements kick off within a few days. Book a call, tell us what you need, and we'll match you with the right designer.</p></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <h2>Ready to start?</h2>
+        <p>Schedule a 30-min intro call and turn your next design bottleneck into shipped work.</p>
+        <a class="button button-brand" href="contact.html">Book a call</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-cards">
+        <section class="footer-brand-card" aria-label="Thoth Sparkz">
+          <div class="footer-brand-lockup">
+            <img src="assets/img/thoth-sparkz-logo-pdf.png" alt="" width="300" height="230" loading="lazy" decoding="async" />
+            <img class="footer-brand-wordmark" src="assets/img/thoth-sparkz-wordmark-gold.png" alt="THOTH SPARKZ" width="2172" height="724" loading="lazy" decoding="async" />
+          </div>
+          <div class="footer-brand-copy">
+            <p>Creative digital solutions,</p>
+            <p>on demand.</p>
+          </div>
+        </section>
+        <section class="footer-links-card">
+          <div class="footer-mark" aria-hidden="true"><img src="assets/img/thoth-sparkz-logo-pdf.png" alt="" width="300" height="230" loading="lazy" decoding="async" /></div>
+          <div class="footer-link-columns">
+            <div>
+              <p>Links</p>
+              <nav aria-label="Footer links">
+                <a href="index.html#how-it-works">Our Services</a>
+                <a href="work.html">Product</a>
+                <a href="index.html#faq">FAQ</a>
+              </nav>
+            </div>
+            <div>
+              <p>Company</p>
+              <nav aria-label="Company links">
+                <a href="contact.html">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms</a>
+              </nav>
+            </div>
+          </div>
+          <div class="footer-bottom-row">
+            <p>&copy; 2026 THOTH SPARKZ. All rights reserved.</p>
+            <a class="footer-cta" href="contact.html">Book a call</a>
+          </div>
+        </section>
+      </div>
+      <div class="footer-email-wrap">
+        <button class="footer-email-watermark" type="button" data-copy-email="info@thotsparkz.com" aria-label="Copy info@thotsparkz.com">info@thotsparkz.com</button>
+      </div>
+    </footer>
+  </body>
+</html>

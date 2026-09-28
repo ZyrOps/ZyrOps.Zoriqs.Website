@@ -1,0 +1,21 @@
+{
+  "name": "Thoth Sparkz",
+  "short_name": "Thoth Sparkz",
+  "description": "Creative digital solutions for websites, apps, branding, marketing, and product design.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#0a0d12",
+  "icons": [
+    {
+      "src": "favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
