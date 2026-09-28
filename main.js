@@ -14,70 +14,57 @@
   const defaultCtaText = navCta?.textContent || "";
   let wordIndex = 0;
   let lastScroll = window.scrollY;
-  let observedScroll = window.scrollY;
   let visibleTimer = null;
   let rippleTimer = null;
+
+  let serviceTrigger = null;
+  let trackTravel = 0;
+
+  function readServiceTrigger() {
+    if (serviceTrigger && Number.isFinite(serviceTrigger.start) && serviceTrigger.trigger === serviceSection) {
+      return serviceTrigger;
+    }
+    const triggers = window.ScrollTrigger?.getAll?.() || [];
+    serviceTrigger = triggers.find((trigger) => trigger.trigger === serviceSection) || null;
+    return serviceTrigger;
+  }
 
   function getServiceTrackProgress() {
     const track = document.querySelector(".process-track");
     if (!track) return 0;
-    const transform = getComputedStyle(track).transform;
-    const match = transform && transform !== "none" ? transform.match(/matrix.*\((.+)\)/) : null;
-    const values = match ? match[1].split(",").map((value) => Number.parseFloat(value.trim())) : [];
-    const x = values.length >= 6 ? values[4] : 0;
-    const max = Math.max(1, track.scrollWidth - window.innerWidth);
-    return Math.min(1, Math.max(0, Math.abs(x) / max));
+    const transform = track.style.transform || "";
+    const translate = transform.match(/translate3d\(\s*(-?[\d.]+)px/i) || transform.match(/translate\(\s*(-?[\d.]+)px/i);
+    let x = translate ? Number.parseFloat(translate[1]) : 0;
+    if (!translate) {
+      const matrix = transform.match(/matrix.*\((.+)\)/);
+      const values = matrix ? matrix[1].split(",").map((value) => Number.parseFloat(value.trim())) : [];
+      x = values.length >= 6 ? values[4] : 0;
+    }
+    if (!trackTravel) {
+      const span = track.scrollWidth - window.innerWidth;
+      if (span > 8) trackTravel = span;
+    }
+    return Math.min(1, Math.max(0, Math.abs(x) / (trackTravel || 1)));
   }
 
   function getServicesProgress(y) {
     if (!serviceSection) return { active: false, progress: 0 };
 
-    const rect = serviceSection.getBoundingClientRect();
-    const geometryActive = rect.top <= 96 && rect.bottom >= window.innerHeight * 0.35;
-    const geometrySpan = Math.max(1, rect.height - window.innerHeight);
-    const trackProgress = getServiceTrackProgress();
-    const geometryProgress = trackProgress || Math.min(1, Math.max(0, -rect.top / geometrySpan));
-
-    const triggers = window.ScrollTrigger?.getAll?.() || [];
-    const serviceTrigger = triggers.find(
-      (trigger) => trigger.trigger === serviceSection || trigger.trigger?.classList?.contains("process-section")
-    );
-    if (serviceTrigger && Number.isFinite(serviceTrigger.start) && Number.isFinite(serviceTrigger.end)) {
-      const triggerActive = y >= serviceTrigger.start && y <= serviceTrigger.end;
-      const span = Math.max(1, serviceTrigger.end - serviceTrigger.start);
-      const triggerProgress = Math.min(1, Math.max(0, (y - serviceTrigger.start) / span));
+    const trigger = readServiceTrigger();
+    if (trigger && Number.isFinite(trigger.start) && Number.isFinite(trigger.end)) {
+      const span = Math.max(1, trigger.end - trigger.start);
       return {
-        active: triggerActive || geometryActive,
-        progress: trackProgress || (triggerActive ? triggerProgress : geometryProgress)
+        active: y >= trigger.start && y <= trigger.end,
+        progress: Math.min(1, Math.max(0, (y - trigger.start) / span))
       };
     }
 
-    return { active: geometryActive, progress: geometryProgress };
-  }
-
-  function getVisibleServiceIndex() {
-    if (!serviceCards.length) return 0;
-
-    const viewportCenter = window.innerWidth / 2;
-    let closestIndex = 0;
-    let closestDistance = Number.POSITIVE_INFINITY;
-    let hasVisibleCard = false;
-
-    serviceCards.forEach((card, index) => {
-      const rect = card.getBoundingClientRect();
-      const visibleWidth = Math.min(rect.right, window.innerWidth) - Math.max(rect.left, 0);
-      if (visibleWidth <= 0) return;
-      hasVisibleCard = true;
-
-      const cardCenter = rect.left + rect.width / 2;
-      const distance = Math.abs(cardCenter - viewportCenter);
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestIndex = index;
-      }
-    });
-
-    return hasVisibleCard ? closestIndex : Number.NaN;
+    const top = serviceSection.offsetTop;
+    const span = Math.max(1, serviceSection.offsetHeight - window.innerHeight);
+    return {
+      active: y >= top && y <= top + serviceSection.offsetHeight,
+      progress: Math.min(1, Math.max(0, (y - top) / span))
+    };
   }
 
   function updateServiceNav(y, isDesktop) {
@@ -90,15 +77,16 @@
     if (active) nav.classList.remove("is-hidden");
 
     if (!serviceDots.length) return;
-    const fallbackIndex = Math.min(serviceDots.length - 1, Math.floor(serviceState.progress * serviceDots.length));
-    const visibleIndex = getVisibleServiceIndex();
-    const activeIndex = active ? Math.min(serviceDots.length - 1, Number.isFinite(visibleIndex) ? visibleIndex : fallbackIndex) : 0;
+    const cardCount = Math.max(1, serviceCards.length - 1);
+    const activeIndex = active
+      ? Math.min(serviceDots.length - 1, Math.round(getServiceTrackProgress() * cardCount))
+      : 0;
     serviceDots.forEach((dot, index) => dot.classList.toggle("is-active", index === activeIndex));
   }
 
   function onScroll() {
     const y = window.scrollY;
-    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const max = Math.max(1, window.__lenis?.limit || document.documentElement.scrollHeight - window.innerHeight);
     const delta = y - lastScroll;
     const isDesktop = desktopNav.matches;
 
@@ -124,29 +112,24 @@
       lastScroll = y;
     }
     if (progress) progress.style.transform = `scaleX(${Math.min(1, y / max)})`;
-    observedScroll = y;
   }
 
   window.__updateDynamicNav = onScroll;
 
   window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", () => {
+    trackTravel = 0;
+    serviceTrigger = null;
+    onScroll();
+  }, { passive: true });
   desktopNav.addEventListener?.("change", () => {
     nav?.classList.remove("is-hidden", "is-visible", "is-rippling");
     lastScroll = window.scrollY;
+    serviceTrigger = null;
+    trackTravel = 0;
     onScroll();
   });
   onScroll();
-
-  function watchScrollPosition() {
-    const y = window.scrollY;
-    if (Math.abs(y - observedScroll) > 1) onScroll();
-    if (nav?.classList.contains("is-service-mode")) updateServiceNav(y, desktopNav.matches);
-    requestAnimationFrame(watchScrollPosition);
-  }
-  requestAnimationFrame(watchScrollPosition);
-  window.setInterval(() => {
-    if (Math.abs(window.scrollY - observedScroll) > 1) onScroll();
-  }, 80);
 
   if (nav) {
     nav.addEventListener("click", () => {
@@ -294,8 +277,8 @@
     });
   });
 
-  const serviceVideos = Array.from(document.querySelectorAll(".service-video"));
-  const playServiceVideo = (video) => {
+  const motionVideos = Array.from(document.querySelectorAll("video"));
+  const playMotionVideo = (video) => {
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
@@ -303,21 +286,19 @@
     if (playPromise?.catch) playPromise.catch(() => {});
   };
 
-  serviceVideos.forEach((video) => {
-    if (video.readyState >= 2) playServiceVideo(video);
-    video.addEventListener("loadeddata", () => playServiceVideo(video), { once: true });
-  });
-
-  if ("IntersectionObserver" in window && serviceVideos.length) {
+  if ("IntersectionObserver" in window && motionVideos.length) {
     const videoObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) playServiceVideo(entry.target);
+          if (entry.isIntersecting) playMotionVideo(entry.target);
+          else entry.target.pause();
         });
       },
-      { threshold: 0.18 }
+      { rootMargin: "180px 0px", threshold: 0.01 }
     );
-    serviceVideos.forEach((video) => videoObserver.observe(video));
+    motionVideos.forEach((video) => videoObserver.observe(video));
+  } else {
+    motionVideos.forEach((video) => playMotionVideo(video));
   }
 
   document.querySelectorAll("[data-copy-email]").forEach((emailButton) => {

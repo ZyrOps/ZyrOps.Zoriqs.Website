@@ -34,19 +34,13 @@
   function initLenis() {
     if (reduceMotion || !window.Lenis || !desktopMotion.matches) return null;
     const instance = new Lenis({
-      duration: 0.55,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: "vertical",
+      lerp: 0.42,
       orientation: "vertical",
-      gestureDirection: "vertical",
       gestureOrientation: "vertical",
-      smooth: true,
       smoothWheel: true,
-      smoothTouch: false,
       syncTouch: false,
-      wheelMultiplier: 1.65,
-      touchMultiplier: 2.5,
-      infinite: false
+      wheelMultiplier: 1.12,
+      touchMultiplier: 1.35
     });
 
     instance.scrollTo(0, { immediate: true });
@@ -125,7 +119,7 @@
           trigger: heroRoot,
           start: "top top",
           end: "bottom top",
-          scrub: 1.5
+          scrub: true
         }
       });
     }
@@ -193,7 +187,7 @@
           const totalWords = section.querySelectorAll(".word").length;
           return `+=${Math.max(totalWords * 80, window.innerHeight * 1.2)}`;
         },
-        scrub: 0.3,
+        scrub: true,
         pin: true,
         pinSpacing: true,
         anticipatePin: 1,
@@ -328,7 +322,6 @@
     const logoImg = lastCard.querySelector(".logo-transition-img");
     const logoStage = section.querySelector(".process-logo-stage");
     const stageLogo = logoStage?.querySelector("img");
-    const darkBg = getComputedStyle(document.documentElement).getPropertyValue("--ink-dark").trim() || "#0a0d12";
 
     tl.call(() => {
       section.classList.add("is-logo-handoff");
@@ -345,26 +338,6 @@
       visibility: "hidden",
       duration: 0.24,
       ease: "power2.out"
-    }, 1.15);
-
-    tl.to(lastCard, {
-      backgroundColor: darkBg,
-      boxShadow: "none",
-      borderRadius: 0,
-      duration: 0.24,
-      ease: "power2.inOut"
-    }, 1.15);
-
-    tl.to(section, {
-      backgroundColor: darkBg,
-      duration: 0.24,
-      ease: "power2.inOut"
-    }, 1.15);
-
-    tl.to(track, {
-      backgroundColor: darkBg,
-      duration: 0.24,
-      ease: "power2.inOut"
     }, 1.15);
 
     if (logoStage) {
@@ -400,13 +373,6 @@
     }
 
     if (logoImg) {
-      tl.to(lastCard, {
-        minHeight: () => `${window.innerHeight}px`,
-        justifyContent: "center",
-        duration: 0.24,
-        ease: "power2.inOut"
-      }, 1.15);
-
       tl.to(track, {
         y: () => -Math.max(window.innerHeight * 0.16, 96),
         duration: 0.28,
@@ -602,7 +568,7 @@
 
   function initParallaxAndCounters(hasScrollTrigger) {
     if (!hasScrollTrigger) return;
-    gsap.utils.toArray(".story-card video, .work-card img, .gallery-band img").forEach((img) => {
+    gsap.utils.toArray(".work-card img, .gallery-band img, .story-card img.cover").forEach((img) => {
       const trigger = img.closest(".story-card, .work-card, figure") || img;
       gsap.fromTo(img, { y: -30 }, { y: 30, ease: "none", scrollTrigger: { trigger, start: "top bottom", end: "bottom top", scrub: true } });
     });
@@ -677,7 +643,7 @@
     window.addEventListener("mousemove", (event) => {
       mouseX = event.clientX;
       mouseY = event.clientY;
-      gsap.to(dot, { x: mouseX, y: mouseY, duration: 0.05, ease: "none" });
+      gsap.set(dot, { x: mouseX, y: mouseY });
     });
 
     gsap.ticker.add(() => {
