@@ -1,4 +1,4 @@
-# Thoth Sparkz Deployment Notes
+# Zoriqs Deployment Notes
 
 These notes cover the domain-independent deployment items. Add the final domain before creating canonical tags, the production sitemap, SSL certificate commands, and absolute social preview URLs.
 

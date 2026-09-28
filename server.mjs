@@ -88,5 +88,5 @@ createServer((req, res) => {
   res.writeHead(200, headers);
   createReadStream(file).pipe(res);
 }).listen(port, "127.0.0.1", () => {
-  console.log(`Thoth Sparkz website running at http://127.0.0.1:${port}`);
+  console.log(`Zoriqs website running at http://127.0.0.1:${port}`);
 });

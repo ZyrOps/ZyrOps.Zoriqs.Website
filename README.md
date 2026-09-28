@@ -1,12 +1,12 @@
-# Thoth Sparkz Website
+# Zoriqs Website
 
-Official static website for Thoth Sparkz, built as a lightweight HTML, CSS, and JavaScript site with GSAP-powered scroll animations.
+Official static website for Zoriqs, built as a lightweight HTML, CSS, and JavaScript site with GSAP-powered scroll animations.
 
 ## Project Status
 
 - Production repo: `https://github.com/ZyrOps/ZyrOps.Thothsparkz.Website.git`
 - Main branch: `main`
-- Local project folder: `C:\Users\abhij\Zyrops\ThothSparkz`
+- Local project folder: `C:\Users\conta\Documents\Projects\ZyrOps.Zoriqs.Website`
 - Local development URL: `http://127.0.0.1:4173`
 
 ## Tech Stack
@@ -49,9 +49,7 @@ Removed pages:
 
 Logo and brand assets:
 
-- `assets/img/thoth-sparkz-logo-pdf.png`
-- `assets/img/thoth-sparkz-wordmark-gold.png`
-- `assets/img/logo-end.png`
+- `assets/img/zoriqs-logo.svg`
 
 Service media:
 
@@ -79,7 +77,7 @@ Icons:
 From the project folder:
 
 ```powershell
-cd C:\Users\abhij\Zyrops\ThothSparkz
+cd C:\Users\conta\Documents\Projects\ZyrOps.Zoriqs.Website
 node server.mjs 4173
 ```
 
@@ -184,7 +182,7 @@ Commit changes:
 
 ```powershell
 git add -A
-git commit -m "Update Thoth Sparkz website"
+git commit -m "Update Zoriqs website"
 ```
 
 Push to GitHub:
