@@ -4,7 +4,7 @@ Official static website for Zoriqs, built as a lightweight HTML, CSS, and JavaSc
 
 ## Project Status
 
-- Production repo: `https://github.com/ZyrOps/ZyrOps.Thothsparkz.Website.git`
+- Production repo: `https://github.com/ZyrOps/ZyrOps.Zoriqs.Website.git`
 - Main branch: `main`
 - Local project folder: `C:\Users\conta\Documents\Projects\ZyrOps.Zoriqs.Website`
 - Local development URL: `http://127.0.0.1:4173`
@@ -16,7 +16,7 @@ Official static website for Zoriqs, built as a lightweight HTML, CSS, and JavaSc
 - Vanilla JavaScript in `main.js`
 - GSAP and ScrollTrigger for animation
 - Lenis for smooth desktop scrolling
-- Custom Node static server in `server.mjs`
+- Static hosting on Vercel (`vercel.json`), local preview server in `scripts/dev-server.mjs`
 - No build step required
 - No package install required
 
@@ -39,10 +39,11 @@ Removed pages:
 - `styles.css` - Layout, responsive design, nav, footer, contact form, service cards, cursor styling
 - `animations.js` - GSAP page animations, scroll-driven word reveal, services horizontal scroll, logo handoff
 - `main.js` - Dynamic nav, mobile menu, filters, cursor behavior, copy email behavior
-- `server.mjs` - Local static server with security and cache headers
+- `vercel.json` - Vercel static hosting config (security and cache headers)
+- `scripts/dev-server.mjs` - Local preview server (kept out of the root so Vercel does not run it)
 - `robots.txt` - Basic search crawler rules
 - `site.webmanifest` - PWA/browser manifest metadata
-- `DEPLOYMENT.md` - VPS and domain deployment notes
+- `DEPLOYMENT.md` - Vercel and domain deployment notes
 - `scripts/seo-check.mjs` - Local SEO and asset sanity checker
 
 ## Assets
@@ -78,7 +79,7 @@ From the project folder:
 
 ```powershell
 cd C:\Users\conta\Documents\Projects\ZyrOps.Zoriqs.Website
-node server.mjs 4173
+node scripts/dev-server.mjs 4173
 ```
 
 Open:
@@ -90,7 +91,7 @@ http://127.0.0.1:4173
 If port `4173` is already busy, use another port:
 
 ```powershell
-node server.mjs 4174
+node scripts/dev-server.mjs 4174
 ```
 
 Then open:
@@ -194,7 +195,7 @@ git push origin main
 ## Current GitHub Remote
 
 ```text
-origin https://github.com/ZyrOps/ZyrOps.Thothsparkz.Website.git
+origin https://github.com/ZyrOps/ZyrOps.Zoriqs.Website.git
 ```
 
 ## Notes For Future Edits

@@ -1,8 +1,11 @@
 import { createReadStream, existsSync, statSync } from "node:fs";
 import { createServer } from "node:http";
-import { extname, join, normalize, resolve } from "node:path";
+import { dirname, extname, join, normalize, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const root = resolve(".");
+// Local preview only. Production is served as static files by Vercel (see vercel.json);
+// keep this out of the project root so Vercel does not detect it as a Node server entrypoint.
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const port = Number(process.argv[2] || 4173);
 
 const types = {
@@ -25,34 +28,13 @@ const types = {
   ".xml": "application/xml; charset=utf-8"
 };
 
-const immutableTypes = new Set([
-  ".css",
-  ".js",
-  ".svg",
-  ".gif",
-  ".png",
-  ".ico",
-  ".avif",
-  ".webp",
-  ".mp4",
-  ".webm",
-  ".woff2",
-  ".otf"
-]);
-
 createServer((req, res) => {
   const url = new URL(req.url || "/", `http://localhost:${port}`);
   let pathname = decodeURIComponent(url.pathname);
   if (pathname === "/") pathname = "/index.html";
 
   let file = normalize(join(root, pathname));
-  if (!file.startsWith(root)) {
-    res.writeHead(403);
-    res.end("Forbidden");
-    return;
-  }
-
-  if (pathname.includes("/.") || pathname.endsWith("package.json")) {
+  if (!file.startsWith(root) || pathname.includes("/.")) {
     res.writeHead(403);
     res.end("Forbidden");
     return;
@@ -68,24 +50,11 @@ createServer((req, res) => {
     return;
   }
 
-  const ext = extname(file);
-  const headers = {
-    "Content-Type": types[ext] || "application/octet-stream",
-    "X-Content-Type-Options": "nosniff",
-    "X-Frame-Options": "SAMEORIGIN",
-    "Referrer-Policy": "strict-origin-when-cross-origin",
-    "Permissions-Policy": "camera=(), microphone=(), geolocation=()"
-  };
-
-  if (immutableTypes.has(ext)) {
-    headers["Cache-Control"] = "public, max-age=31536000, immutable";
-  } else if (ext === ".html") {
-    headers["Cache-Control"] = "public, max-age=3600, must-revalidate";
-  } else {
-    headers["Cache-Control"] = "public, max-age=3600";
-  }
-
-  res.writeHead(200, headers);
+  res.writeHead(200, {
+    "Content-Type": types[extname(file)] || "application/octet-stream",
+    "Cache-Control": "no-cache",
+    "X-Content-Type-Options": "nosniff"
+  });
   createReadStream(file).pipe(res);
 }).listen(port, "127.0.0.1", () => {
   console.log(`Zoriqs website running at http://127.0.0.1:${port}`);

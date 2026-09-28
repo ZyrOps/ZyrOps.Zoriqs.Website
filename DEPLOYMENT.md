@@ -1,47 +1,33 @@
 # Zoriqs Deployment Notes
 
-These notes cover the domain-independent deployment items. Add the final domain before creating canonical tags, the production sitemap, SSL certificate commands, and absolute social preview URLs.
+## Vercel (current hosting)
 
-## 1GB VPS Target
+The site is plain static HTML, CSS, and JavaScript. Vercel serves the repository root as static files, and every push to `main` triggers an automatic deployment.
 
-- Ubuntu 22.04 LTS minimal
-- Nginx for static serving
-- 1GB swap file enabled
-- Brotli and gzip compression
-- Long immutable cache for static assets
-- Short revalidation cache for HTML
-- No Docker, Redis, Elasticsearch, or other heavy services
+- `vercel.json` sets `"framework": null` with no build or install command, so Vercel treats the project as a static site.
+- Security headers (`X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`) and cache headers are defined in `vercel.json`.
+- `.vercelignore` keeps `scripts/` and docs out of the deployment.
 
-## Nginx Headers To Use In Production
+### Do not put a Node server file in the project root
 
-```nginx
-add_header X-Frame-Options "SAMEORIGIN" always;
-add_header X-Content-Type-Options "nosniff" always;
-add_header Referrer-Policy "strict-origin-when-cross-origin" always;
-add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+Vercel auto-detects files such as `server.mjs`, `server.js`, `index.js`, or `app.js` in the root as a Node server entrypoint. It then runs that file as a function without the static files, so every asset (CSS, JS, images, favicons, `robots.txt`) returns 404 and the logs show `Legacy server listening...`. The local preview server therefore lives at `scripts/dev-server.mjs`.
 
-location ~* \.(css|js|woff2|woff|otf)$ {
-    expires 1y;
-    add_header Cache-Control "public, immutable";
-    access_log off;
-}
+### Vercel project settings
 
-location ~* \.(webp|avif|png|jpg|jpeg|gif|svg|ico|mp4|webm)$ {
-    expires 1y;
-    add_header Cache-Control "public, immutable";
-    access_log off;
-}
+In Project Settings > Build and Deployment:
 
-location ~* \.html$ {
-    expires 1h;
-    add_header Cache-Control "public, must-revalidate";
-}
-```
+- Framework Preset: `Other`
+- Build Command, Output Directory, Install Command: leave empty or overridden off (`vercel.json` takes precedence)
+- Root Directory: repository root
 
-## Domain Items To Add Later
+### Cache busting
+
+`styles.css`, `main.js`, and `animations.js` are referenced with a `?v=` query string. Bump the value in every HTML page when those files change.
+
+## Domain Items To Add
 
 - `<link rel="canonical" href="https://your-domain/">`
 - `og:url` and absolute `og:image`
 - `twitter:image` absolute URL
 - `sitemap.xml` with absolute URLs
-- Certbot command for the selected domain
+- Add the custom domain in Vercel > Project > Domains
